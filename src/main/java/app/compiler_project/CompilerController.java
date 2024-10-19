@@ -1,55 +1,46 @@
 package app.compiler_project;
 
-import app.compiler_project.utilities.LexicalAnalyzer;
-import app.compiler_project.utilities.ResultsPackage;
-import javafx.beans.property.ReadOnlyObjectWrapper;
+import app.compiler_project.lexical_part.LexicalAnalyzer;
+import app.compiler_project.lexical_part.LexicalApplication;
+import app.compiler_project.lexical_part.LexicalController;
+import app.compiler_project.lexical_part.ResultsLexicalPackage;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Pair;
+import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class CompilerController {
 
-    private final String buttonReleasedStyle = "-fx-background-color: #fc625d; -fx-background-radius: 7px; -fx-border-color: black; -fx-border-radius: 5px;";
-    private final String buttonPressedStyle = "-fx-background-color: gray; -fx-background-radius: 7px; -fx-border-color: black; -fx-border-radius: 5px;";
+    private final Stage lexicalStage = new Stage();
 
-    private ResultsPackage resultsPackage;
+    private LexicalApplication lexicalApplication;
+    private LexicalController lexicalController;
+
+    private ResultsLexicalPackage resultsLexicalPackage;
     private LexicalAnalyzer lexicalAnalyzer;
 
     @FXML
     private TextArea codeSegment;
 
     @FXML
-    private TextArea resultArea;
-
-    @FXML
-    private TableView<Pair<Integer, String>> keywordsTable;
-
-    @FXML
-    private TableView<Pair<Integer, String>> separatorsTable;
-
-    @FXML
-    private TableView<Pair<Integer, String>> identifiersTable;
-
-    @FXML
-    private TableView<Pair<Integer, String>> constantsTable;
-
-    @FXML
     void initialize() {
-        fillTable(keywordsTable);
-        fillTable(separatorsTable);
-        fillTable(identifiersTable);
-        fillTable(constantsTable);
+        initializeLexicalSegment();
 
-        resultsPackage = new ResultsPackage(keywordsTable, separatorsTable,
-                identifiersTable, constantsTable, resultArea);
-        lexicalAnalyzer = new LexicalAnalyzer(resultsPackage);
+        resultsLexicalPackage = new ResultsLexicalPackage(new ArrayList<>(), new ArrayList<>(),
+                new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        lexicalAnalyzer = new LexicalAnalyzer(resultsLexicalPackage);
     }
 
     @FXML
-    void compileClick(MouseEvent event) {
+    void compileClick() {
         try {
             lexicalAnalyzer.analyze(codeSegment.getText());
+
+            lexicalController.addParams(resultsLexicalPackage);
         } catch (IllegalArgumentException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Unknown token");
@@ -61,32 +52,37 @@ public class CompilerController {
     @FXML
     void buttonPressed(MouseEvent event) {
         Button button = (Button) event.getSource();
+        String buttonPressedStyle = "-fx-background-color: gray; -fx-background-radius: 7px;" +
+                "-fx-border-color: black; -fx-border-radius: 5px;";
         button.setStyle(buttonPressedStyle);
     }
 
     @FXML
     void buttonReleased(MouseEvent event) {
         Button button = (Button) event.getSource();
+        String buttonReleasedStyle = "-fx-background-color: #fc625d; -fx-background-radius: 7px;" +
+                "-fx-border-color: black; -fx-border-radius: 5px;";
         button.setStyle(buttonReleasedStyle);
     }
 
-    private void fillTable(TableView<Pair<Integer, String>> table) {
-        TableColumn<Pair<Integer, String>, Integer> codeColumn = new TableColumn<>("code");
-        codeColumn.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getKey()));
-        codeColumn.setResizable(false);
-        codeColumn.setEditable(false);
-        codeColumn.setSortable(false);
-        codeColumn.setPrefWidth(75);
-        table.getColumns().add(codeColumn);
+    @FXML
+    void showLexicalClicked() throws Exception {
+        lexicalApplication.start(lexicalStage);
+    }
 
-        TableColumn<Pair<Integer, String>, String> valueColumn = new TableColumn<>("value");
-        valueColumn.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().getValue()));
-        valueColumn.setResizable(false);
-        valueColumn.setEditable(false);
-        valueColumn.setSortable(false);
-        valueColumn.setPrefWidth(158);
-        table.getColumns().add(valueColumn);
+    private void initializeLexicalSegment() {
+        try {
+            lexicalApplication = new LexicalApplication();
 
-        table.setStyle("-fx-font-size: 20");
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(CompilerApplication.class.getResource("lexical_analyzer.fxml"));
+            Scene scene = new Scene(loader.load(), 1189, 916);
+            lexicalStage.setTitle("Lexical analyzer");
+            lexicalStage.setScene(scene);
+
+            lexicalController = loader.getController();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
     }
 }

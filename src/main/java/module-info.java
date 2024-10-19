@@ -4,5 +4,6 @@ module app.compiler_project {
 
 
     opens app.compiler_project to javafx.fxml;
+    opens app.compiler_project.lexical_part to javafx.fxml;
     exports app.compiler_project;
 }

@@ -1,4 +1,4 @@
-package app.compiler_project.utilities;
+package app.compiler_project.lexical_part;
 
 import java.util.HashSet;
 import java.util.List;

@@ -3,8 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +10,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1940.0" style="-fx-background-color: white; -fx-border-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.compiler_project.CompilerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1099.0" style="-fx-background-color: white; -fx-border-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.compiler_project.CompilerController">
    <children>
       <Pane layoutX="5.0" layoutY="5.0" prefHeight="990.0" prefWidth="720.0" style="-fx-background-color: #fc625d; -fx-border-color: black; -fx-border-width: 2px; -fx-background-radius: 15px; -fx-border-radius: 10px;">
          <children>
@@ -31,46 +29,12 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="750.0" layoutY="1.0" prefHeight="998.0" prefWidth="1189.0" style="-fx-background-color: #D3D3D3;">
+      <Pane layoutX="750.0" layoutY="1.0" prefHeight="998.0" prefWidth="349.0" style="-fx-background-color: #D3D3D3;">
          <effect>
             <DropShadow radius="10.7325" width="23.93" />
          </effect>
          <children>
-            <Pane layoutX="14.0" layoutY="14.0" prefHeight="459.0" prefWidth="280.0" style="-fx-background-color: #fc625d; -fx-background-radius: 15px; -fx-border-color: black; -fx-border-width: 2px; -fx-border-radius: 10px;">
-               <children>
-                  <ScrollPane layoutX="14.0" layoutY="47.0" prefHeight="398.0" prefWidth="252.0" style="-fx-border-color: black; -fx-background-radius: 15px; -fx-border-radius: 13px;">
-                     <padding>
-                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                     </padding>
-                     <content>
-                        <TableView fx:id="keywordsTable" prefHeight="380.0" prefWidth="235.0" />
-                     </content>
-                  </ScrollPane>
-                  <Label layoutX="83.0" layoutY="8.0" text="Keywords" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="Arial" size="26.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Pane layoutX="14.0" layoutY="487.0" prefHeight="415.0" prefWidth="1162.0" style="-fx-background-color: #fc625d; -fx-background-radius: 15px; -fx-border-color: black; -fx-border-width: 2px; -fx-border-radius: 10px;">
-               <children>
-                  <Label layoutX="521.0" layoutY="6.0" text="Results" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="Arial" size="36.0" />
-                     </font>
-                  </Label>
-                  <TextArea fx:id="resultArea" editable="false" layoutX="10.0" layoutY="55.0" prefHeight="350.0" prefWidth="1142.0" style="-fx-border-color: black; -fx-background-radius: 15px; -fx-border-radius: 13px;" wrapText="true">
-                     <padding>
-                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                     </padding>
-                     <font>
-                        <Font name="Courier New" size="20.0" />
-                     </font>
-                  </TextArea>
-               </children>
-            </Pane>
-            <Button layoutX="496.0" layoutY="921.0" mnemonicParsing="false" onMouseClicked="#compileClick" onMousePressed="#buttonPressed" onMouseReleased="#buttonReleased" prefHeight="56.0" prefWidth="198.0" style="-fx-background-color: #fc625d; -fx-background-radius: 7px; -fx-border-color: black; -fx-border-radius: 5px;" text="Compile" textFill="WHITE">
+            <Button layoutX="76.0" layoutY="23.0" mnemonicParsing="false" onMouseClicked="#compileClick" onMousePressed="#buttonPressed" onMouseReleased="#buttonReleased" prefHeight="56.0" prefWidth="198.0" style="-fx-background-color: #fc625d; -fx-background-radius: 7px; -fx-border-color: black; -fx-border-radius: 5px;" text="Compile" textFill="WHITE">
                <font>
                   <Font name="Arial" size="24.0" />
                </font>
@@ -82,57 +46,18 @@
                   </DropShadow>
                </effect>
             </Button>
-            <Pane layoutX="308.0" layoutY="14.0" prefHeight="459.0" prefWidth="280.0" style="-fx-background-color: #fc625d; -fx-background-radius: 15px; -fx-border-color: black; -fx-border-width: 2px; -fx-border-radius: 10px;">
-               <children>
-                  <Label layoutX="76.0" layoutY="8.0" text="Separators" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="Arial" size="26.0" />
-                     </font>
-                  </Label>
-                  <ScrollPane layoutX="14.0" layoutY="47.0" prefHeight="398.0" prefWidth="252.0" style="-fx-border-color: black; -fx-background-radius: 15px; -fx-border-radius: 13px;">
-                     <padding>
-                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                     </padding>
-                     <content>
-                        <TableView fx:id="separatorsTable" prefHeight="380.0" prefWidth="235.0" />
-                     </content>
-                  </ScrollPane>
-               </children>
-            </Pane>
-            <Pane layoutX="602.0" layoutY="14.0" prefHeight="459.0" prefWidth="280.0" style="-fx-background-color: #fc625d; -fx-background-radius: 15px; -fx-border-color: black; -fx-border-width: 2px; -fx-border-radius: 10px;">
-               <children>
-                  <Label layoutX="84.0" layoutY="7.0" text="Identifiers" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="Arial" size="26.0" />
-                     </font>
-                  </Label>
-                  <ScrollPane layoutX="14.0" layoutY="47.0" prefHeight="398.0" prefWidth="252.0" style="-fx-border-color: black; -fx-background-radius: 15px; -fx-border-radius: 13px;">
-                     <padding>
-                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                     </padding>
-                     <content>
-                        <TableView fx:id="identifiersTable" prefHeight="380.0" prefWidth="235.0" />
-                     </content>
-                  </ScrollPane>
-               </children>
-            </Pane>
-            <Pane layoutX="896.0" layoutY="14.0" prefHeight="459.0" prefWidth="280.0" style="-fx-background-color: #fc625d; -fx-background-radius: 15px; -fx-border-color: black; -fx-border-width: 2px; -fx-border-radius: 10px;">
-               <children>
-                  <Label layoutX="81.0" layoutY="7.0" text="Constants" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="Arial" size="26.0" />
-                     </font>
-                  </Label>
-                  <ScrollPane layoutX="14.0" layoutY="47.0" prefHeight="398.0" prefWidth="252.0" style="-fx-border-color: black; -fx-background-radius: 15px; -fx-border-radius: 13px;">
-                     <padding>
-                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                     </padding>
-                     <content>
-                        <TableView fx:id="constantsTable" prefHeight="380.0" prefWidth="235.0" />
-                     </content>
-                  </ScrollPane>
-               </children>
-            </Pane>
+            <Button layoutX="41.0" layoutY="97.0" mnemonicParsing="false" onMouseClicked="#showLexicalClicked" onMousePressed="#buttonPressed" onMouseReleased="#buttonReleased" prefHeight="75.0" prefWidth="268.0" style="-fx-background-color: #fc625d; -fx-background-radius: 7px; -fx-border-color: black; -fx-border-radius: 5px;" text="Show lexical analization" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color opacity="0.5343511700630188" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
          </children>
       </Pane>
    </children>

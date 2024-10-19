@@ -1,20 +1,20 @@
-package app.compiler_project.utilities;
+package app.compiler_project.lexical_part;
 
-import javafx.scene.control.TableView;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 public class LexicalAnalyzer {
 
     private final String regexNumber = "(-)?[0-9]+";
     private final String regexIdentifier = "[a-zA-Z][0-9][a-zA-Z]+";
 
-    private final ResultsPackage resultsPackage;
+    private final ResultsLexicalPackage resultsPackage;
 
-    public LexicalAnalyzer(ResultsPackage resultsPackage) {
+    public LexicalAnalyzer(ResultsLexicalPackage resultsPackage) {
         this.resultsPackage = resultsPackage;
     }
 
@@ -27,21 +27,18 @@ public class LexicalAnalyzer {
 
         resultsPackage.clearResults();
 
-        List<String> tokens = new ArrayList<>(List.of(code.split("(\\s)+|(\\r?\\n)+")))
-                .stream().map(this::checkToken).map(data -> "(" + data + ")").toList();
-
-        StringBuilder stringBuilder = new StringBuilder();
-        tokens.forEach(data -> stringBuilder.append(data).append("; "));
-
-        resultsPackage.resultArea().setText(stringBuilder.substring(0, stringBuilder.length() - 1));
+        resultsPackage.resultArea().addAll(Stream.of(code.split("(\\s)+|(\\r?\\n)+"))
+                .map(this::checkToken).toList());
     }
 
     private String deleteComments(String code) {
         return code.replaceAll("\\(\\*.*\\*\\)", "");
     }
 
-    private String checkToken(String token) throws IllegalArgumentException {
-        TableView<Pair<Integer, String>> table = null;
+    private Pair<String, Pair<Integer, String>> checkToken(String token)
+            throws IllegalArgumentException {
+
+        List<Pair<Integer, String>> table;
         String tableName;
 
         if (KeywordsAndSeparatorsStorage.KEYWORDS.contains(token)) {
@@ -64,6 +61,6 @@ public class LexicalAnalyzer {
             throw new IllegalArgumentException("Unknown token: \"" + token + "\"");
         }
 
-        return tableName + ", " + resultsPackage.addToken(table, token);
+        return new Pair<>(tableName, resultsPackage.addToken(table, token));
     }
 }
