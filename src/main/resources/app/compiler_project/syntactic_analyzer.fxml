@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="445.0" prefWidth="1189.0" style="-fx-background-color: white; -fx-border-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.compiler_project.syntactic_part.SyntacticController">
+   <children>
+      <Pane layoutY="1.0" prefHeight="445.0" prefWidth="1189.0" style="-fx-background-color: #D3D3D3;">
+         <effect>
+            <DropShadow radius="10.7325" width="23.93" />
+         </effect>
+         <children>
+            <Pane layoutX="14.0" layoutY="14.0" prefHeight="415.0" prefWidth="1162.0" style="-fx-background-color: #fc625d; -fx-background-radius: 15px; -fx-border-color: black; -fx-border-width: 2px; -fx-border-radius: 10px;">
+               <children>
+                  <Label layoutX="521.0" layoutY="6.0" text="Results" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="36.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="resultArea" editable="false" layoutX="10.0" layoutY="55.0" prefHeight="350.0" prefWidth="1142.0" style="-fx-border-color: black; -fx-background-radius: 15px; -fx-border-radius: 13px;" wrapText="true">
+                     <padding>
+                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                     </padding>
+                     <font>
+                        <Font name="Courier New" size="20.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

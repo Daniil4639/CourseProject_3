@@ -32,13 +32,13 @@ public class KeywordsAndSeparatorsStorage {
             "}",
             "(",
             ")",
-            "=",
+            "="));
+
+    public static Set<String> OPERATORS = new HashSet<>(List.of(
             "-",
             "+",
             ">",
             "<",
-            ">=",
-            "<=",
             "*",
             "/"));
 }

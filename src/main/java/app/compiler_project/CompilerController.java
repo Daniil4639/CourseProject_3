@@ -4,6 +4,9 @@ import app.compiler_project.lexical_part.LexicalAnalyzer;
 import app.compiler_project.lexical_part.LexicalApplication;
 import app.compiler_project.lexical_part.LexicalController;
 import app.compiler_project.lexical_part.ResultsLexicalPackage;
+import app.compiler_project.syntactic_part.SyntacticAnalyzer;
+import app.compiler_project.syntactic_part.SyntacticApplication;
+import app.compiler_project.syntactic_part.SyntacticController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,10 +15,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CompilerController {
 
     private final Stage lexicalStage = new Stage();
+    private final Stage syntacticStage = new Stage();
 
     private LexicalApplication lexicalApplication;
     private LexicalController lexicalController;
@@ -23,16 +28,23 @@ public class CompilerController {
     private ResultsLexicalPackage resultsLexicalPackage;
     private LexicalAnalyzer lexicalAnalyzer;
 
+    private SyntacticApplication syntacticApplication;
+    private SyntacticController syntacticController;
+
+    private SyntacticAnalyzer syntacticAnalyzer;
+
     @FXML
     private TextArea codeSegment;
 
     @FXML
     void initialize() {
         initializeLexicalSegment();
+        initializeSyntacticSegment();
 
         resultsLexicalPackage = new ResultsLexicalPackage(new ArrayList<>(), new ArrayList<>(),
                 new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         lexicalAnalyzer = new LexicalAnalyzer(resultsLexicalPackage);
+        syntacticAnalyzer = new SyntacticAnalyzer();
     }
 
     @FXML
@@ -41,6 +53,11 @@ public class CompilerController {
             lexicalAnalyzer.analyze(codeSegment.getText());
 
             lexicalController.addParams(resultsLexicalPackage);
+
+            List<String> syntacticResult = syntacticAnalyzer
+                    .analyze(resultsLexicalPackage.resultArea());
+
+            syntacticController.setResult(syntacticResult);
         } catch (IllegalArgumentException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Unknown token");
@@ -70,6 +87,11 @@ public class CompilerController {
         lexicalApplication.start(lexicalStage);
     }
 
+    @FXML
+    void showSyntacticClicked() throws Exception {
+        syntacticApplication.start(syntacticStage);
+    }
+
     private void initializeLexicalSegment() {
         try {
             lexicalApplication = new LexicalApplication();
@@ -81,6 +103,22 @@ public class CompilerController {
             lexicalStage.setScene(scene);
 
             lexicalController = loader.getController();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+    }
+
+    private void initializeSyntacticSegment() {
+        try {
+            syntacticApplication = new SyntacticApplication();
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(CompilerApplication.class.getResource("syntactic_analyzer.fxml"));
+            Scene scene = new Scene(loader.load(), 1189, 445);
+            syntacticStage.setTitle("Syntactic analyzer");
+            syntacticStage.setScene(scene);
+
+            syntacticController = loader.getController();
         } catch (Exception ex) {
             throw new RuntimeException(ex.getMessage());
         }

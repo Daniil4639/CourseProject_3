@@ -2,7 +2,6 @@ package app.compiler_project.lexical_part;
 
 import javafx.util.Pair;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -45,7 +44,9 @@ public class LexicalAnalyzer {
             table = resultsPackage.keywordsTable();
             tableName = "Keywords";
         }
-        else if (KeywordsAndSeparatorsStorage.SEPARATORS.contains(token)) {
+        else if (KeywordsAndSeparatorsStorage.SEPARATORS.contains(token)
+                || KeywordsAndSeparatorsStorage.OPERATORS.contains(token)) {
+
             table = resultsPackage.separatorsTable();
             tableName = "Separators";
         }
