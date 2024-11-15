@@ -4,6 +4,7 @@ import app.compiler_project.lexical_part.LexicalAnalyzer;
 import app.compiler_project.lexical_part.LexicalApplication;
 import app.compiler_project.lexical_part.LexicalController;
 import app.compiler_project.lexical_part.ResultsLexicalPackage;
+import app.compiler_project.semantic_part.SemanticAnalyzer;
 import app.compiler_project.syntactic_part.SyntacticAnalyzer;
 import app.compiler_project.syntactic_part.SyntacticApplication;
 import app.compiler_project.syntactic_part.SyntacticController;
@@ -13,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,7 @@ public class CompilerController {
 
         resultsLexicalPackage = new ResultsLexicalPackage(new ArrayList<>(), new ArrayList<>(),
                 new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+
         lexicalAnalyzer = new LexicalAnalyzer(resultsLexicalPackage);
         syntacticAnalyzer = new SyntacticAnalyzer();
     }
@@ -58,6 +61,19 @@ public class CompilerController {
                     .analyze(resultsLexicalPackage.resultArea());
 
             syntacticController.setResult(syntacticResult);
+
+            SemanticAnalyzer.analyze(resultsLexicalPackage.resultArea(),
+                    resultsLexicalPackage
+                            .identifiersTable()
+                            .stream()
+                            .map(Pair::getValue)
+                            .toList());
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setContentText("Compilation had successfully done!");
+            alert.show();
+
         } catch (IllegalArgumentException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Unknown token");
