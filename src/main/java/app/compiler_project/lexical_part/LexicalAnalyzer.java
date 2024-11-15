@@ -23,6 +23,19 @@ public class LexicalAnalyzer {
         for (String symbol: KeywordsAndSeparatorsStorage.SEPARATORS) {
             code = code.replace(symbol, " " + symbol + " ");
         }
+        for (String symbol: KeywordsAndSeparatorsStorage.OPERATORS) {
+            code = code.replace(symbol, " " + symbol + " ");
+        }
+
+        for (int i = 2; i < code.length() - 3; i++) {
+            if (code.charAt(i) == '=' && code.charAt(i + 3) == '=') {
+                code = code.substring(0, i + 1) + code.substring(i + 3);
+            }
+            else if (code.charAt(i) == '=' && code.charAt(i - 2) == '!') {
+                code = code.substring(0, i - 1) + code.substring(i);
+                i--;
+            }
+        }
 
         resultsPackage.clearResults();
 

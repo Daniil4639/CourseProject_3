@@ -27,7 +27,7 @@ public class SyntacticAnalyzer {
                 stack.add(elemProjection);
             }
             else {
-                GrammarRules.zipStack(stack);
+                GrammarRules.zipStack(stack, elemProjection);
 
                 stack.add(elemProjection);
             }
@@ -35,7 +35,7 @@ public class SyntacticAnalyzer {
             res.add(stack.toString());
         }
 
-        GrammarRules.zipStack(stack);
+        GrammarRules.zipStack(stack, "");
         res.add(stack.toString());
 
         stack.add("⟂");
