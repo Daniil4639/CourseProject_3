@@ -1,5 +1,8 @@
 package app.compiler_project;
 
+import app.compiler_project.assembler_part.AssemblerApplication;
+import app.compiler_project.assembler_part.AssemblerController;
+import app.compiler_project.assembler_part.AssemblerTransformator;
 import app.compiler_project.lexical_part.LexicalAnalyzer;
 import app.compiler_project.lexical_part.LexicalApplication;
 import app.compiler_project.lexical_part.LexicalController;
@@ -27,6 +30,7 @@ public class CompilerController {
     private final Stage lexicalStage = new Stage();
     private final Stage syntacticStage = new Stage();
     private final Stage polizStage = new Stage();
+    private final Stage assemblerStage = new Stage();
 
     private LexicalApplication lexicalApplication;
     private LexicalController lexicalController;
@@ -45,6 +49,10 @@ public class CompilerController {
     private List<String> poliz;
     private PolizConstructor polizConstructor;
 
+    private AssemblerApplication assemblerApplication;
+    private AssemblerController assemblerController;
+    private AssemblerTransformator assemblerTransformator;
+
     @FXML
     private TextArea codeSegment;
 
@@ -53,6 +61,7 @@ public class CompilerController {
         initializeLexicalSegment();
         initializeSyntacticSegment();
         initializePolizSegment();
+        initializeAssemblerSegment();
 
         resultsLexicalPackage = new ResultsLexicalPackage(new ArrayList<>(), new ArrayList<>(),
                 new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
@@ -62,6 +71,8 @@ public class CompilerController {
 
         poliz = new ArrayList<>();
         polizConstructor = new PolizConstructor(poliz);
+
+        assemblerTransformator = new AssemblerTransformator(resultsLexicalPackage, poliz);
     }
 
     @FXML
@@ -85,6 +96,9 @@ public class CompilerController {
 
             polizConstructor.construct(resultsLexicalPackage.resultArea());
             polizController.setResult(poliz);
+
+            assemblerTransformator.transformToAssembler();
+            assemblerController.setResult(assemblerTransformator.getString());
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
@@ -130,6 +144,11 @@ public class CompilerController {
         polizApplication.start(polizStage);
     }
 
+    @FXML
+    void showAssemblerClicked() throws Exception {
+        assemblerApplication.start(assemblerStage);
+    }
+
     private void initializeLexicalSegment() {
         try {
             lexicalApplication = new LexicalApplication();
@@ -173,6 +192,22 @@ public class CompilerController {
             polizStage.setScene(scene);
 
             polizController = loader.getController();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+    }
+
+    private void initializeAssemblerSegment() {
+        try {
+            assemblerApplication = new AssemblerApplication();
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(CompilerApplication.class.getResource("assembler_transform.fxml"));
+            Scene scene = new Scene(loader.load(), 600, 1050);
+            assemblerStage.setTitle("Assembler View");
+            assemblerStage.setScene(scene);
+
+            assemblerController = loader.getController();
         } catch (Exception ex) {
             throw new RuntimeException(ex.getMessage());
         }
