@@ -43,7 +43,7 @@ public class OperatorMatrix {
             {null, null, null, -1, null, null, null, -1, null, null, null, null, -1, -1, null, null, -1, null, null, null, null, -1, -1, -1, null, null, null, null},
             {null, null, null, 1, 1, null, null, null, 1, null, null, null, null, null, null, 1, null, null, null, null, null, null, null, null, null, null, null, null},
             {null, null, null, null, null, -1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, -1, -1, null},
-            {null, null, null, 1, 1, null, null, -1, 1, null, null, null, -1, -1, null, 1, -1, null, null, null, null, -1, -1, -1, null, null, null, null},
+            {null, null, null, 1, 1, null, null, -1, 1, null, null, null, -1, -1, null, 1, -1, 1, null, null, 1, -1, -1, -1, null, null, null, null},
             {null, null, null, null, 1, null, null, null, 1, 0, null, null, null, null, null, null, null, 1, null, null, 1, null, null, null, -1, -1, -1, null},
             {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 0, null, null, null},
             {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -1, -1, -1, null},
@@ -58,8 +58,8 @@ public class OperatorMatrix {
             {null, null, null, null, null, null, null, null, null, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
             {null, null, null, null, null, null, null, null, null, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
             {null, null, 1, null, 1, 0, null, null, 1, 0, 1, 0, null, null, 1, null, null, 1, 1, 1, 1, null, null, null, null, null, 1, null},
-            {null, null, null, null, 1, 1, null, null, 1, null, 1, null, null, null, 1, null, null, 1, 1, 1, 1, null, null, null, null, null, 1, null},
-            {null, null, null, null, 1, 1, null, null, 1, null, 1, null, null, null, 1, null, null, 1, 1, 1, 1, null, null, null, -1, -1, -1, null},
+            {null, null, null, null, 1, 1, null, null, 1, null, 1, null, null, null, 1, null, null, 1, 1, 1, null, null, null, null, null, null, 1, null},
+            {null, null, null, null, 1, 1, null, null, 1, null, 1, null, null, null, 1, null, null, 1, 1, 1, null, null, null, null, -1, -1, -1, null},
             {-1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
     };
 }

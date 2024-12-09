@@ -1,9 +1,15 @@
 package app.compiler_project;
 
+import app.compiler_project.assembler_part.AssemblerApplication;
+import app.compiler_project.assembler_part.AssemblerController;
+import app.compiler_project.assembler_part.AssemblerTransformator;
 import app.compiler_project.lexical_part.LexicalAnalyzer;
 import app.compiler_project.lexical_part.LexicalApplication;
 import app.compiler_project.lexical_part.LexicalController;
 import app.compiler_project.lexical_part.ResultsLexicalPackage;
+import app.compiler_project.poliz_part.PolizApplication;
+import app.compiler_project.poliz_part.PolizConstructor;
+import app.compiler_project.poliz_part.PolizController;
 import app.compiler_project.semantic_part.SemanticAnalyzer;
 import app.compiler_project.syntactic_part.SyntacticAnalyzer;
 import app.compiler_project.syntactic_part.SyntacticApplication;
@@ -23,6 +29,8 @@ public class CompilerController {
 
     private final Stage lexicalStage = new Stage();
     private final Stage syntacticStage = new Stage();
+    private final Stage polizStage = new Stage();
+    private final Stage assemblerStage = new Stage();
 
     private LexicalApplication lexicalApplication;
     private LexicalController lexicalController;
@@ -35,6 +43,16 @@ public class CompilerController {
 
     private SyntacticAnalyzer syntacticAnalyzer;
 
+    private PolizApplication polizApplication;
+    private PolizController polizController;
+
+    private List<String> poliz;
+    private PolizConstructor polizConstructor;
+
+    private AssemblerApplication assemblerApplication;
+    private AssemblerController assemblerController;
+    private AssemblerTransformator assemblerTransformator;
+
     @FXML
     private TextArea codeSegment;
 
@@ -42,12 +60,19 @@ public class CompilerController {
     void initialize() {
         initializeLexicalSegment();
         initializeSyntacticSegment();
+        initializePolizSegment();
+        initializeAssemblerSegment();
 
         resultsLexicalPackage = new ResultsLexicalPackage(new ArrayList<>(), new ArrayList<>(),
                 new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
 
         lexicalAnalyzer = new LexicalAnalyzer(resultsLexicalPackage);
         syntacticAnalyzer = new SyntacticAnalyzer();
+
+        poliz = new ArrayList<>();
+        polizConstructor = new PolizConstructor(poliz);
+
+        assemblerTransformator = new AssemblerTransformator(resultsLexicalPackage, poliz);
     }
 
     @FXML
@@ -69,6 +94,12 @@ public class CompilerController {
                             .map(Pair::getValue)
                             .toList());
 
+            polizConstructor.construct(resultsLexicalPackage.resultArea());
+            polizController.setResult(poliz);
+
+            assemblerTransformator.transformToAssembler();
+            assemblerController.setResult(assemblerTransformator.getString());
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setContentText("Compilation had successfully done!");
@@ -76,7 +107,7 @@ public class CompilerController {
 
         } catch (IllegalArgumentException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Unknown token");
+            alert.setTitle("Analyzer error");
             alert.setContentText(ex.getMessage());
             alert.show();
         }
@@ -108,6 +139,16 @@ public class CompilerController {
         syntacticApplication.start(syntacticStage);
     }
 
+    @FXML
+    void showPolizClicked() throws Exception {
+        polizApplication.start(polizStage);
+    }
+
+    @FXML
+    void showAssemblerClicked() throws Exception {
+        assemblerApplication.start(assemblerStage);
+    }
+
     private void initializeLexicalSegment() {
         try {
             lexicalApplication = new LexicalApplication();
@@ -135,6 +176,38 @@ public class CompilerController {
             syntacticStage.setScene(scene);
 
             syntacticController = loader.getController();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+    }
+
+    private void initializePolizSegment() {
+        try {
+            polizApplication = new PolizApplication();
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(CompilerApplication.class.getResource("poliz_constructor.fxml"));
+            Scene scene = new Scene(loader.load(), 1189, 445);
+            polizStage.setTitle("Poliz constructor");
+            polizStage.setScene(scene);
+
+            polizController = loader.getController();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+    }
+
+    private void initializeAssemblerSegment() {
+        try {
+            assemblerApplication = new AssemblerApplication();
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(CompilerApplication.class.getResource("assembler_transform.fxml"));
+            Scene scene = new Scene(loader.load(), 600, 1050);
+            assemblerStage.setTitle("Assembler View");
+            assemblerStage.setScene(scene);
+
+            assemblerController = loader.getController();
         } catch (Exception ex) {
             throw new RuntimeException(ex.getMessage());
         }

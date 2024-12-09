@@ -30,11 +30,14 @@ public class GrammarRules {
             List.of("n")
     );
 
-    public static void zipStack(List<String> stack) throws IllegalArgumentException {
+    public static void zipStack(List<String> stack, String endToken) throws IllegalArgumentException {
         int zipCnt = 0;
 
         while(zip(stack)) {
             zipCnt++;
+            if (endToken.equals("else")) {
+                break;
+            }
         }
 
         if (zipCnt == 0) {

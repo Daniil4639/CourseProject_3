@@ -70,6 +70,30 @@
                   </DropShadow>
                </effect>
             </Button>
+            <Button layoutX="41.0" layoutY="281.0" mnemonicParsing="false" onMouseClicked="#showPolizClicked" onMousePressed="#buttonPressed" onMouseReleased="#buttonReleased" prefHeight="75.0" prefWidth="268.0" style="-fx-background-color: #fc625d; -fx-background-radius: 7px; -fx-border-color: black; -fx-border-radius: 5px;" text="Show poliz constructor" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color opacity="0.5343511700630188" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
+            <Button layoutX="41.0" layoutY="374.0" mnemonicParsing="false" onMouseClicked="#showAssemblerClicked" onMousePressed="#buttonPressed" onMouseReleased="#buttonReleased" prefHeight="75.0" prefWidth="268.0" style="-fx-background-color: #fc625d; -fx-background-radius: 7px; -fx-border-color: black; -fx-border-radius: 5px;" text="Show asembler view" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color opacity="0.5343511700630188" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
          </children>
       </Pane>
    </children>
