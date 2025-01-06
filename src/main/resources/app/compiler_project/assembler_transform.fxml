@@ -17,7 +17,7 @@
          <children>
             <Pane layoutX="14.0" layoutY="14.0" prefHeight="1023.0" prefWidth="573.0" style="-fx-background-color: #fc625d; -fx-background-radius: 15px; -fx-border-color: black; -fx-border-width: 2px; -fx-border-radius: 10px;">
                <children>
-                  <Label layoutX="88.0" text="Results (MASM - format)" textAlignment="CENTER" textFill="WHITE">
+                  <Label layoutX="88.0" layoutY="7.0" text="Results (MASM - format)" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="36.0" />
                      </font>
